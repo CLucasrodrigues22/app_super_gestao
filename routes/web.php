@@ -13,16 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+
+Rota que retorna uma Callback
 Route::get('/', function () {
     return 'Olá, seja bem vindo ao curso';
 });
 
-Route::get('/sobrenos', function () {
-    return 'sobrenos';
-});
+*/
 
+Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'principal']);
 
-Route::get('/contato', function () {
-    return 'contato';
-});
+Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'contato']);
 
+Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class, 'sobreNos']);
