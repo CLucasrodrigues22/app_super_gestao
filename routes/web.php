@@ -1,5 +1,6 @@
 <?php
 
+use Dotenv\Util\Str;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,64 @@ Route::get('/', function () {
 
 */
 
-Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'principal']);
+// Passando parametros em rotas
+// Route::get(
+//     '/contato/{nome}/{categoria}/{assunto}/{mensagem}',
+//     function (
+//         string $nome,
+//         string $categoria,
+//         string $assunto,
+//         string $mensagem
+//     ) {
+//         echo "Estamos aqui: .$nome - $categoria - $assunto - $mensagem";
+//     }
+// );
 
-Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'contato']);
+// Rotas com parametros opçionais
+// Route::get(
+//     '/contato/{nome?}/{categoria?}/{assunto?}/{mensagem?}',
+//     function (
+//         string $nome = 'Parametro não preenchido',
+//         string $categoria = 'Parametro não preenchido',
+//         string $assunto = 'Parametro não preenchido',
+//         string $mensagem = 'Parametro não preenchido'
+//     ) {
+//         echo "Estamos aqui: $nome - $categoria - $assunto - $mensagem";
+//     }
+// );
 
-Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class, 'sobreNos']);
+// Rotas com expressões regulares
+// Route::get(
+//     '/contato/{nome}/{categoria_id}',
+//     function (
+//         string $nome = 'Desconhecido',
+//         int $categoria_id = 1 // 1 = 'Informação
+//     ) {
+//         echo "Estamos aqui: $nome, id = $categoria_id";
+//     }
+// )->where('categoria_id','[0-9]+')->where('nome','[A-Za-z]+'); // o metodo where() filtra os parametros, aceitando somente o caractere do tipo que nele foi passado
+
+Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'Principal'])->name('site.index');
+
+Route::get('/cntato', [\App\Http\Controllers\ContatoController::class, 'Contato'])->name('site.contato');
+
+Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class, 'SobreNos'])->name('site.sobrenos');
+
+Route::get('/login', [\App\Http\Controllers\Login::class, 'Login'])->name('site.login');
+
+
+//rotas privadas
+Route::prefix('/app')->group(function()
+{
+    Route::get('/clientes', [\App\Http\Controllers\Clientes::class, 'Clientes'])->name('app.clientes');
+
+    Route::get('/fornecedores', [\App\Http\Controllers\Fornecedores::class, 'Fornecedores'])->name('app.fornecedores');
+
+    Route::get('/produtos', [\App\Http\Controllers\Produtos::class, 'Produtos'])->name('app.produtos');
+});
+
+Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class, 'Teste'])->name('site.teste');
+
+Route::fallback(function() {
+    echo 'Rota acessada não existe, clique <a href="'.route('site.index').'">aqui</a> para voltar ao incio';
+});
