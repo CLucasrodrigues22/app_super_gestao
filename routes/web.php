@@ -62,21 +62,21 @@ Route::get('/', function () {
 
 Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'Principal'])->name('site.index');
 
-Route::get('/cntato', [\App\Http\Controllers\ContatoController::class, 'Contato'])->name('site.contato');
+Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'Contato'])->name('site.contato');
 
 Route::get('/sobrenos', [\App\Http\Controllers\SobreNosController::class, 'SobreNos'])->name('site.sobrenos');
 
-Route::get('/login', [\App\Http\Controllers\Login::class, 'Login'])->name('site.login');
+Route::get('/login', [\App\Http\Controllers\LoginController::class, 'Login'])->name('site.login');
 
 
 //rotas privadas
 Route::prefix('/app')->group(function()
 {
-    Route::get('/clientes', [\App\Http\Controllers\Clientes::class, 'Clientes'])->name('app.clientes');
+    Route::get('/clientes', [\App\Http\Controllers\ClientesController::class, 'Clientes'])->name('app.clientes');
 
-    Route::get('/fornecedores', [\App\Http\Controllers\Fornecedores::class, 'Fornecedores'])->name('app.fornecedores');
+    Route::get('/fornecedores', [\App\Http\Controllers\FornecedorController::class, 'Fornecedor'])->name('app.fornecedores');
 
-    Route::get('/produtos', [\App\Http\Controllers\Produtos::class, 'Produtos'])->name('app.produtos');
+    Route::get('/produtos', [\App\Http\Controllers\ProdutosController::class, 'Produtos'])->name('app.produtos');
 });
 
 Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class, 'Teste'])->name('site.teste');
