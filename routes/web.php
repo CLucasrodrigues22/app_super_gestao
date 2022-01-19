@@ -49,7 +49,10 @@ Route::get('/contato', 'App\Http\Controllers\ContatoController@contato')->name('
 
 Route::get('/sobrenos', 'App\Http\Controllers\SobreNosController@sobrenos')->name('site.sobrenos');
 
+Route::post('/contato', 'App\Http\Controllers\ContatoController@contato')->name('site.contato');
+
 Route::get('/login', 'App\Http\Controllers\LoginController@login')->name('site.login');
+
 
 //Rotas privadas, essas rotas precisam de autenticação para acessa-lás
 Route::prefix('/app')->group(function () {
